@@ -1,0 +1,789 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+	<title>Dispersion Costs Calculator</title>
+	<SCRIPT language=JavaScript>
+	<!--
+	function get_area_values()
+	{
+		document.DiCalc.cost_per_square_foot.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_foot.value)).toFixed(2);
+		document.DiCalc.cost_per_square_yard.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_yard.value)).toFixed(2);
+		document.DiCalc.cost_per_square_meter.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_meter.value)).toFixed(2);
+		document.DiCalc.cost_per_square_inch.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_inch.value)).toFixed(2);
+		document.DiCalc.cost_per_square_centimeter.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_centimeter.value)).toFixed(2);
+
+		document.DiCalc.total_square_feet.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_foot.value)).toFixed(2);
+		document.DiCalc.total_square_yards.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_yard.value)).toFixed(2);
+		document.DiCalc.total_square_meters.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_meter.value)).toFixed(2);
+		document.DiCalc.total_square_inches.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_inch.value)).toFixed(2);
+		document.DiCalc.total_square_centimeters.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_centimeter.value)).toFixed(2);
+	}
+
+	function get_grand_total()
+	{
+		// total volume in liters
+		var total_volume_liters = (parseFloat(document.DiCalc.milliliters_of_linker.value / 1000) + parseFloat(document.DiCalc.milliliters_of_adjuster.value / 1000) + parseFloat(document.DiCalc.solvent.value * 3.785411784));
+		document.DiCalc.total_volume_liters.value = total_volume_liters.toFixed(2);
+
+		// total volume in gallons
+		var total_volume_gallons = (parseFloat((document.DiCalc.milliliters_of_linker.value / 1000) / 3.785411784) + parseFloat((document.DiCalc.milliliters_of_adjuster.value / 1000) / 3.785411784) + parseFloat(document.DiCalc.solvent.value));
+		document.DiCalc.total_volume_gallons.value = total_volume_gallons.toFixed(2);
+
+		// grand total cost
+		var grand_total = (parseFloat(document.DiCalc.total_solvent.value) + parseFloat(document.DiCalc.total_adjuster.value) + parseFloat(document.DiCalc.total_particles.value) + parseFloat(document.DiCalc.total_linker.value)).toFixed(2);
+		document.DiCalc.grand_total.value = grand_total;
+
+		// cost per gallon
+		document.DiCalc.per_gallon.value = (parseFloat(document.DiCalc.grand_total.value / total_volume_gallons)).toFixed(2);
+
+		// cost per Liter
+		document.DiCalc.per_liter.value = (parseFloat(document.DiCalc.grand_total.value / total_volume_liters)).toFixed(2);
+
+		document.DiCalc.cost_per_square_foot.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_foot.value)).toFixed(2);
+		document.DiCalc.cost_per_square_yard.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_yard.value)).toFixed(2);
+		document.DiCalc.cost_per_square_meter.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_meter.value)).toFixed(2);
+		document.DiCalc.cost_per_square_inch.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_inch.value)).toFixed(2);
+		document.DiCalc.cost_per_square_centimeter.value = (parseFloat((grand_total / total_volume_liters / 1000) * document.DiCalc.milliliters_per_square_centimeter.value)).toFixed(2);
+
+		document.DiCalc.total_square_feet.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_foot.value)).toFixed(2);
+		document.DiCalc.total_square_yards.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_yard.value)).toFixed(2);
+		document.DiCalc.total_square_meters.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_meter.value)).toFixed(2);
+		document.DiCalc.total_square_inches.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_inch.value)).toFixed(2);
+		document.DiCalc.total_square_centimeters.value = (parseFloat((total_volume_liters * 1000) / document.DiCalc.milliliters_per_square_centimeter.value)).toFixed(2);
+	}
+
+	function get_total_particles_costs()
+	{
+		document.DiCalc.particles.value = (parseFloat(document.DiCalc.particles.value)).toFixed(2);
+		var liters_of_solvent = parseFloat(document.DiCalc.solvent.value * 3.785411784);
+		var particles = parseFloat(document.DiCalc.particles.value * liters_of_solvent);
+		if (particles < parseFloat(document.DiCalc.particles_grams_2.value))
+		{
+			if ((parseFloat(document.DiCalc.particles_cost_per_gram_1.value * particles)) < parseFloat(document.DiCalc.particles_cost_2.value))
+			{
+				document.DiCalc.total_particles.value = (parseFloat(document.DiCalc.particles_cost_per_gram_1.value * particles)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_particles.value = document.DiCalc.particles_cost_2.value;
+			}
+		}
+		else if (particles < parseFloat(document.DiCalc.particles_grams_3.value))
+		{
+			if ((parseFloat(document.DiCalc.particles_cost_per_gram_2.value * particles)) < parseFloat(document.DiCalc.particles_cost_3.value))
+			{
+				document.DiCalc.total_particles.value = (parseFloat(document.DiCalc.particles_cost_per_gram_2.value * particles)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_particles.value = document.DiCalc.particles_cost_3.value;
+			}
+		}
+		else
+		{
+			document.DiCalc.total_particles.value = (parseFloat(document.DiCalc.particles_cost_per_gram_3.value * particles)).toFixed(2);
+		}
+		document.DiCalc.grams_of_particles.value = (parseFloat(document.DiCalc.particles.value * document.DiCalc.solvent.value * 3.785411784)).toFixed(2);
+	}
+
+	function get_total_linker_costs()
+	{
+		document.DiCalc.linker.value = (parseFloat(document.DiCalc.linker.value)).toFixed(2);
+		var liters_of_solvent = parseFloat(document.DiCalc.solvent.value * 3.785411784);
+		var linker = parseFloat(document.DiCalc.linker.value * liters_of_solvent);
+		if (linker < parseFloat(document.DiCalc.linker_grams_2.value))
+		{
+			if ((parseFloat(document.DiCalc.linker_cost_per_gram_1.value * linker)) < parseFloat(document.DiCalc.linker_cost_2.value))
+			{
+				document.DiCalc.total_linker.value = (parseFloat(document.DiCalc.linker_cost_per_gram_1.value * linker)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_linker.value = document.DiCalc.linker_cost_2.value;
+			}
+		}
+		else if (linker < parseFloat(document.DiCalc.linker_grams_3.value))
+		{
+			if ((parseFloat(document.DiCalc.linker_cost_per_gram_2.value * linker)) < parseFloat(document.DiCalc.linker_cost_3.value))
+			{
+				document.DiCalc.total_linker.value = (parseFloat(document.DiCalc.linker_cost_per_gram_2.value * linker)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_linker.value = document.DiCalc.linker_cost_3.value;
+			}
+		}
+		else
+		{
+			document.DiCalc.total_linker.value = (parseFloat(document.DiCalc.linker_cost_per_gram_3.value * linker)).toFixed(2);
+		}
+		document.DiCalc.milliliters_of_linker.value = (parseFloat((document.DiCalc.linker.value / document.DiCalc.linker_grams_per_milliliter.value) * document.DiCalc.solvent.value * 3.785411784)).toFixed(2);
+	}
+
+	function get_total_adjuster_costs()
+	{
+		document.DiCalc.adjuster.value = (parseFloat(document.DiCalc.adjuster.value)).toFixed(2);
+		var liters_of_solvent = parseFloat(document.DiCalc.solvent.value * 3.785411784);
+		var adjuster = parseFloat(document.DiCalc.adjuster.value * liters_of_solvent);
+		if (adjuster < parseFloat(document.DiCalc.adjuster_milliliters_2.value))
+		{
+			if ((parseFloat(document.DiCalc.adjuster_cost_per_milliliter_1.value * adjuster)) < parseFloat(document.DiCalc.adjuster_cost_2.value))
+			{
+				document.DiCalc.total_adjuster.value = (parseFloat(document.DiCalc.adjuster_cost_per_milliliter_1.value * adjuster)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_adjuster.value = document.DiCalc.adjuster_cost_2.value;
+			}
+		}
+		else if (adjuster < parseFloat(document.DiCalc.adjuster_milliliters_3.value))
+		{
+			if ((parseFloat(document.DiCalc.adjuster_cost_per_milliliter_2.value * adjuster)) < parseFloat(document.DiCalc.adjuster_cost_3.value))
+			{
+				document.DiCalc.total_adjuster.value = (parseFloat(document.DiCalc.adjuster_cost_per_milliliter_2.value * adjuster)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_adjuster.value = document.DiCalc.adjuster_cost_3.value;
+			}
+		}
+		else
+		{
+			document.DiCalc.total_adjuster.value = (parseFloat(document.DiCalc.adjuster_cost_per_milliliter_3.value * adjuster)).toFixed(2);
+		}
+		document.DiCalc.milliliters_of_adjuster.value = (parseFloat(document.DiCalc.adjuster.value * document.DiCalc.solvent.value * 3.785411784)).toFixed(2);
+	}
+
+	function get_total_solvent_costs()
+	{
+		document.DiCalc.solvent.value = (parseFloat(document.DiCalc.solvent.value)).toFixed(2);
+		var solvent = parseFloat(document.DiCalc.solvent.value);
+		if (solvent < parseFloat(document.DiCalc.solvent_gallons_2.value))
+		{
+			if ((parseFloat(document.DiCalc.solvent_cost_per_gallon_1.value * solvent)) < parseFloat(document.DiCalc.solvent_cost_2.value))
+			{
+				document.DiCalc.total_solvent.value = (parseFloat(document.DiCalc.solvent_cost_per_gallon_1.value * solvent)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_solvent.value = document.DiCalc.solvent_cost_2.value;
+			}
+		}
+		else if (solvent < parseFloat(document.DiCalc.solvent_gallons_3.value))
+		{
+			if ((parseFloat(document.DiCalc.solvent_cost_per_gallon_2.value * solvent)) < document.DiCalc.solvent_cost_3.value)
+			{
+				document.DiCalc.total_solvent.value = (parseFloat(document.DiCalc.solvent_cost_per_gallon_2.value * solvent)).toFixed(2);
+			}
+			else
+			{
+				document.DiCalc.total_solvent.value = document.DiCalc.solvent_cost_3.value;
+			}
+		}
+		else
+		{
+			document.DiCalc.total_solvent.value = (parseFloat(document.DiCalc.solvent_cost_per_gallon_3.value * solvent)).toFixed(2);
+		}
+		document.DiCalc.liters_of_solvent.value = (parseFloat(document.DiCalc.solvent.value * 3.785411784)).toFixed(2);
+	}
+	
+	function particle_totals()
+	{
+		get_total_particles_costs();
+		get_grand_total();
+	}
+
+	function linker_totals()
+	{
+		get_total_linker_costs();
+		get_grand_total();
+	}
+
+	function adjuster_totals()
+	{
+		get_total_adjuster_costs();
+		get_grand_total();
+	}
+
+	function solvent_totals()
+	{
+		get_total_solvent_costs();
+		get_total_particles_costs();
+		get_total_linker_costs();
+		get_total_adjuster_costs();
+		get_grand_total();
+	}
+
+	function convert_from_square_foot()
+	{
+		var square_foot = parseFloat(document.DiCalc.milliliters_per_square_foot.value);
+		document.DiCalc.milliliters_per_square_foot.value = square_foot.toFixed(2);
+		document.DiCalc.milliliters_per_square_yard.value = (square_foot * 9).toFixed(2);
+		document.DiCalc.milliliters_per_square_meter.value = (square_foot * 10.763910417).toFixed(2);
+		document.DiCalc.milliliters_per_square_inch.value = (square_foot / 144).toFixed(2);
+		document.DiCalc.milliliters_per_square_centimeter.value = (square_foot / 929.0304).toFixed(2);
+	//	get_area_values();
+	}
+
+	function convert_from_square_yard()
+	{
+		var square_yard = parseFloat(document.DiCalc.milliliters_per_square_yard.value);
+		document.DiCalc.milliliters_per_square_yard.value = square_yard.toFixed(2);
+		document.DiCalc.milliliters_per_square_foot.value = (square_yard / 9).toFixed(2);
+		document.DiCalc.milliliters_per_square_meter.value = (square_yard * 1.1959900463333333333333333333333).toFixed(2);
+		document.DiCalc.milliliters_per_square_inch.value = (square_yard / 1296).toFixed(2);
+		document.DiCalc.milliliters_per_square_centimeter.value = (square_yard / 8361.2736).toFixed(2);
+	//	get_area_values();
+	}
+
+	function convert_from_square_meter()
+	{
+		var square_meter = parseFloat(document.DiCalc.milliliters_per_square_meter.value);
+		document.DiCalc.milliliters_per_square_meter.value = square_meter.toFixed(2);
+		document.DiCalc.milliliters_per_square_foot.value = (square_meter / 10.764).toFixed(2);
+		document.DiCalc.milliliters_per_square_yard.value = (square_meter / 1.1960).toFixed(2);
+		document.DiCalc.milliliters_per_square_inch.value = (square_meter / 1550.0031000062 ).toFixed(2);
+		document.DiCalc.milliliters_per_square_centimeter.value = (square_meter / 10000).toFixed(2);
+	//	get_area_values();
+	}
+
+	function convert_from_square_inch()
+	{
+		var square_inch = parseFloat(document.DiCalc.milliliters_per_square_inch.value);
+		document.DiCalc.milliliters_per_square_inch.value = square_inch.toFixed(2);
+		document.DiCalc.milliliters_per_square_foot.value = (square_inch * 144).toFixed(2);
+		document.DiCalc.milliliters_per_square_yard.value = (square_inch * 1296).toFixed(2);
+		document.DiCalc.milliliters_per_square_meter.value = (square_inch * 1550.0031000062 ).toFixed(2);
+		document.DiCalc.milliliters_per_square_centimeter.value = (square_inch * 0.15500031000062).toFixed(2);
+	//	get_area_values();
+	}
+
+	function convert_from_square_centimeter()
+	{
+		var square_centimeter = parseFloat(document.DiCalc.milliliters_per_square_centimeter.value);
+		document.DiCalc.milliliters_per_square_centimeter.value = square_centimeter.toFixed(2);
+		document.DiCalc.milliliters_per_square_foot.value = (square_centimeter * 929.0304).toFixed(2);
+		document.DiCalc.milliliters_per_square_yard.value = (square_centimeter * 8361.2736).toFixed(2);
+		document.DiCalc.milliliters_per_square_meter.value = (square_centimeter * 10000 ).toFixed(2);
+		document.DiCalc.milliliters_per_square_inch.value = (square_centimeter / 0.15500031000062).toFixed(2);
+	//	get_area_values();
+	}
+
+	function default_form_values()
+	{
+		document.DiCalc.solvent_gallons_1.value = 5;
+		document.DiCalc.solvent_gallons_2.value = 50;
+		document.DiCalc.solvent_gallons_3.value = 500;
+		document.DiCalc.solvent_cost_1.value = "17.80";
+		document.DiCalc.solvent_cost_2.value = "142.50";
+		document.DiCalc.solvent_cost_3.value = "1140.00";
+		document.DiCalc.solvent_cost_per_gallon_1.value = (parseFloat(document.DiCalc.solvent_cost_1.value / document.DiCalc.solvent_gallons_1.value)).toFixed(2);
+		document.DiCalc.solvent_cost_per_gallon_2.value = (parseFloat(document.DiCalc.solvent_cost_2.value / document.DiCalc.solvent_gallons_2.value)).toFixed(2);
+		document.DiCalc.solvent_cost_per_gallon_3.value = (parseFloat(document.DiCalc.solvent_cost_3.value / document.DiCalc.solvent_gallons_3.value)).toFixed(2);
+		document.DiCalc.solvent.value = "1.00";
+		get_total_solvent_costs();
+
+		document.DiCalc.particles_grams_1.value = 100;
+		document.DiCalc.particles_grams_2.value = 500;
+		document.DiCalc.particles_grams_3.value = 1000;
+		document.DiCalc.particles_cost_1.value = "270.00";
+		document.DiCalc.particles_cost_2.value = "860.00";
+		document.DiCalc.particles_cost_3.value = "1330.00";
+		document.DiCalc.particles_cost_per_gram_1.value = (parseFloat(document.DiCalc.particles_cost_1.value / document.DiCalc.particles_grams_1.value)).toFixed(2);
+		document.DiCalc.particles_cost_per_gram_2.value = (parseFloat(document.DiCalc.particles_cost_2.value / document.DiCalc.particles_grams_2.value)).toFixed(2);
+		document.DiCalc.particles_cost_per_gram_3.value = (parseFloat(document.DiCalc.particles_cost_3.value / document.DiCalc.particles_grams_3.value)).toFixed(2);
+		document.DiCalc.particles.value = "1.00";
+		get_total_particles_costs();
+
+		document.DiCalc.linker_grams_per_milliliter.value = "1.03";
+		document.DiCalc.linker_milliliters_1.value = 100;
+		document.DiCalc.linker_milliliters_2.value = 250;
+		document.DiCalc.linker_milliliters_3.value = 1000;
+		document.DiCalc.linker_grams_1.value = (parseFloat(document.DiCalc.linker_milliliters_1.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_grams_2.value = (parseFloat(document.DiCalc.linker_milliliters_2.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_grams_3.value = (parseFloat(document.DiCalc.linker_milliliters_3.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_cost_1.value = "72.00";
+		document.DiCalc.linker_cost_2.value = "129.00";
+		document.DiCalc.linker_cost_3.value = "353.00";
+		document.DiCalc.linker_cost_per_gram_1.value = (parseFloat(document.DiCalc.linker_cost_1.value / document.DiCalc.linker_grams_1.value)).toFixed(2);
+		document.DiCalc.linker_cost_per_gram_2.value = (parseFloat(document.DiCalc.linker_cost_2.value / document.DiCalc.linker_grams_2.value)).toFixed(2);
+		document.DiCalc.linker_cost_per_gram_3.value = (parseFloat(document.DiCalc.linker_cost_3.value / document.DiCalc.linker_grams_3.value)).toFixed(2);
+		document.DiCalc.linker.value = "1.00";
+		get_total_linker_costs();
+
+		document.DiCalc.adjuster_milliliters_1.value = 100;
+		document.DiCalc.adjuster_milliliters_2.value = 500;
+		document.DiCalc.adjuster_milliliters_3.value = 1000;
+		document.DiCalc.adjuster_cost_1.value = "28.50";
+		document.DiCalc.adjuster_cost_2.value = "41.80";
+		document.DiCalc.adjuster_cost_3.value = "62.60";
+		document.DiCalc.adjuster_cost_per_milliliter_1.value = (parseFloat(document.DiCalc.adjuster_cost_1.value / document.DiCalc.adjuster_milliliters_1.value)).toFixed(2);
+		document.DiCalc.adjuster_cost_per_milliliter_2.value = (parseFloat(document.DiCalc.adjuster_cost_2.value / document.DiCalc.adjuster_milliliters_2.value)).toFixed(2);
+		document.DiCalc.adjuster_cost_per_milliliter_3.value = (parseFloat(document.DiCalc.adjuster_cost_3.value / document.DiCalc.adjuster_milliliters_3.value)).toFixed(2);
+		document.DiCalc.adjuster.value = "1.00";
+		get_total_adjuster_costs();
+
+		document.DiCalc.milliliters_per_square_foot.value = "50.00";
+		convert_from_square_foot();
+		get_grand_total();
+	}
+
+	function default_sensor_values()
+	{
+		document.DiCalc.solvent_gallons_1.value = 5;
+		document.DiCalc.solvent_gallons_2.value = 50;
+		document.DiCalc.solvent_gallons_3.value = 500;
+		document.DiCalc.solvent_cost_1.value = "17.80";
+		document.DiCalc.solvent_cost_2.value = "142.50";
+		document.DiCalc.solvent_cost_3.value = "1140.00";
+		document.DiCalc.solvent_cost_per_gallon_1.value = (parseFloat(document.DiCalc.solvent_cost_1.value / document.DiCalc.solvent_gallons_1.value)).toFixed(2);
+		document.DiCalc.solvent_cost_per_gallon_2.value = (parseFloat(document.DiCalc.solvent_cost_2.value / document.DiCalc.solvent_gallons_2.value)).toFixed(2);
+		document.DiCalc.solvent_cost_per_gallon_3.value = (parseFloat(document.DiCalc.solvent_cost_3.value / document.DiCalc.solvent_gallons_3.value)).toFixed(2);
+		document.DiCalc.solvent.value = "1.00";
+		get_total_solvent_costs();
+
+		document.DiCalc.particles_grams_1.value = 100;
+		document.DiCalc.particles_grams_2.value = 500;
+		document.DiCalc.particles_grams_3.value = 1000;
+		document.DiCalc.particles_cost_1.value = "270.00";
+		document.DiCalc.particles_cost_2.value = "860.00";
+		document.DiCalc.particles_cost_3.value = "1330.00";
+		document.DiCalc.particles_cost_per_gram_1.value = (parseFloat(document.DiCalc.particles_cost_1.value / document.DiCalc.particles_grams_1.value)).toFixed(2);
+		document.DiCalc.particles_cost_per_gram_2.value = (parseFloat(document.DiCalc.particles_cost_2.value / document.DiCalc.particles_grams_2.value)).toFixed(2);
+		document.DiCalc.particles_cost_per_gram_3.value = (parseFloat(document.DiCalc.particles_cost_3.value / document.DiCalc.particles_grams_3.value)).toFixed(2);
+		document.DiCalc.particles.value = "1.00";
+		get_total_particles_costs();
+
+		document.DiCalc.linker_grams_per_milliliter.value = "1.03";
+		document.DiCalc.linker_milliliters_1.value = 100;
+		document.DiCalc.linker_milliliters_2.value = 250;
+		document.DiCalc.linker_milliliters_3.value = 1000;
+		document.DiCalc.linker_grams_1.value = (parseFloat(document.DiCalc.linker_milliliters_1.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_grams_2.value = (parseFloat(document.DiCalc.linker_milliliters_2.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_grams_3.value = (parseFloat(document.DiCalc.linker_milliliters_3.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_cost_1.value = "72.00";
+		document.DiCalc.linker_cost_2.value = "129.00";
+		document.DiCalc.linker_cost_3.value = "353.00";
+		document.DiCalc.linker_cost_per_gram_1.value = (parseFloat(document.DiCalc.linker_cost_1.value / document.DiCalc.linker_grams_1.value)).toFixed(2);
+		document.DiCalc.linker_cost_per_gram_2.value = (parseFloat(document.DiCalc.linker_cost_2.value / document.DiCalc.linker_grams_2.value)).toFixed(2);
+		document.DiCalc.linker_cost_per_gram_3.value = (parseFloat(document.DiCalc.linker_cost_3.value / document.DiCalc.linker_grams_3.value)).toFixed(2);
+		document.DiCalc.linker.value = "1.00";
+		get_total_linker_costs();
+
+		document.DiCalc.adjuster_milliliters_1.value = 100;
+		document.DiCalc.adjuster_milliliters_2.value = 500;
+		document.DiCalc.adjuster_milliliters_3.value = 1000;
+		document.DiCalc.adjuster_cost_1.value = "28.50";
+		document.DiCalc.adjuster_cost_2.value = "41.80";
+		document.DiCalc.adjuster_cost_3.value = "62.60";
+		document.DiCalc.adjuster_cost_per_milliliter_1.value = (parseFloat(document.DiCalc.adjuster_cost_1.value / document.DiCalc.adjuster_milliliters_1.value)).toFixed(2);
+		document.DiCalc.adjuster_cost_per_milliliter_2.value = (parseFloat(document.DiCalc.adjuster_cost_2.value / document.DiCalc.adjuster_milliliters_2.value)).toFixed(2);
+		document.DiCalc.adjuster_cost_per_milliliter_3.value = (parseFloat(document.DiCalc.adjuster_cost_3.value / document.DiCalc.adjuster_milliliters_3.value)).toFixed(2);
+		document.DiCalc.adjuster.value = "1.00";
+		get_total_adjuster_costs();
+
+		document.DiCalc.milliliters_per_square_foot.value = "35.00";
+		convert_from_square_foot();
+		get_grand_total();
+	}
+
+	function default_heater_values()
+	{
+		document.DiCalc.solvent_gallons_1.value = 5;
+		document.DiCalc.solvent_gallons_2.value = 50;
+		document.DiCalc.solvent_gallons_3.value = 500;
+		document.DiCalc.solvent_cost_1.value = "17.80";
+		document.DiCalc.solvent_cost_2.value = "142.50";
+		document.DiCalc.solvent_cost_3.value = "1140.00";
+		document.DiCalc.solvent_cost_per_gallon_1.value = (parseFloat(document.DiCalc.solvent_cost_1.value / document.DiCalc.solvent_gallons_1.value)).toFixed(2);
+		document.DiCalc.solvent_cost_per_gallon_2.value = (parseFloat(document.DiCalc.solvent_cost_2.value / document.DiCalc.solvent_gallons_2.value)).toFixed(2);
+		document.DiCalc.solvent_cost_per_gallon_3.value = (parseFloat(document.DiCalc.solvent_cost_3.value / document.DiCalc.solvent_gallons_3.value)).toFixed(2);
+		document.DiCalc.solvent.value = "1200.00";
+		get_total_solvent_costs();
+
+		document.DiCalc.particles_grams_1.value = 100;
+		document.DiCalc.particles_grams_2.value = 500;
+		document.DiCalc.particles_grams_3.value = 1000;
+		document.DiCalc.particles_cost_1.value = "270.00";
+		document.DiCalc.particles_cost_2.value = "860.00";
+		document.DiCalc.particles_cost_3.value = "1330.00";
+		document.DiCalc.particles_cost_per_gram_1.value = (parseFloat(document.DiCalc.particles_cost_1.value / document.DiCalc.particles_grams_1.value)).toFixed(2);
+		document.DiCalc.particles_cost_per_gram_2.value = (parseFloat(document.DiCalc.particles_cost_2.value / document.DiCalc.particles_grams_2.value)).toFixed(2);
+		document.DiCalc.particles_cost_per_gram_3.value = (parseFloat(document.DiCalc.particles_cost_3.value / document.DiCalc.particles_grams_3.value)).toFixed(2);
+		document.DiCalc.particles.value = "20.00";
+		get_total_particles_costs();
+
+		document.DiCalc.linker_grams_per_milliliter.value = "1.03";
+		document.DiCalc.linker_milliliters_1.value = 100;
+		document.DiCalc.linker_milliliters_2.value = 250;
+		document.DiCalc.linker_milliliters_3.value = 1000;
+		document.DiCalc.linker_grams_1.value = (parseFloat(document.DiCalc.linker_milliliters_1.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_grams_2.value = (parseFloat(document.DiCalc.linker_milliliters_2.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_grams_3.value = (parseFloat(document.DiCalc.linker_milliliters_3.value * document.DiCalc.linker_grams_per_milliliter.value)).toFixed(1);
+		document.DiCalc.linker_cost_1.value = "72.00";
+		document.DiCalc.linker_cost_2.value = "129.00";
+		document.DiCalc.linker_cost_3.value = "353.00";
+		document.DiCalc.linker_cost_per_gram_1.value = (parseFloat(document.DiCalc.linker_cost_1.value / document.DiCalc.linker_grams_1.value)).toFixed(2);
+		document.DiCalc.linker_cost_per_gram_2.value = (parseFloat(document.DiCalc.linker_cost_2.value / document.DiCalc.linker_grams_2.value)).toFixed(2);
+		document.DiCalc.linker_cost_per_gram_3.value = (parseFloat(document.DiCalc.linker_cost_3.value / document.DiCalc.linker_grams_3.value)).toFixed(2);
+		document.DiCalc.linker.value = "5.00";
+		get_total_linker_costs();
+
+		document.DiCalc.adjuster_milliliters_1.value = 100;
+		document.DiCalc.adjuster_milliliters_2.value = 500;
+		document.DiCalc.adjuster_milliliters_3.value = 1000;
+		document.DiCalc.adjuster_cost_1.value = "28.50";
+		document.DiCalc.adjuster_cost_2.value = "41.80";
+		document.DiCalc.adjuster_cost_3.value = "62.60";
+		document.DiCalc.adjuster_cost_per_milliliter_1.value = (parseFloat(document.DiCalc.adjuster_cost_1.value / document.DiCalc.adjuster_milliliters_1.value)).toFixed(2);
+		document.DiCalc.adjuster_cost_per_milliliter_2.value = (parseFloat(document.DiCalc.adjuster_cost_2.value / document.DiCalc.adjuster_milliliters_2.value)).toFixed(2);
+		document.DiCalc.adjuster_cost_per_milliliter_3.value = (parseFloat(document.DiCalc.adjuster_cost_3.value / document.DiCalc.adjuster_milliliters_3.value)).toFixed(2);
+		document.DiCalc.adjuster.value = "1.00";
+		get_total_adjuster_costs();
+
+		document.DiCalc.milliliters_per_square_foot.value = "50.00";
+		convert_from_square_foot();
+		get_grand_total();
+	}
+	//-->
+	</SCRIPT>
+	</head>
+	<body>
+	<form action="dispersioncostV1.html" method="POST" name="DiCalc">
+	<table>
+		<tr>
+			<td valign="top">
+				<table cellpadding="2">
+					<tr>
+						<td align="center" colspan="4"><a href="https://www.cheaptubes.com/product/multi-walled-carbon-nanotubes-8-15nm/" target="_blank" style="text-decoration: none"><U>Costs of Particles</U></a></td>
+					</tr>
+					<tr>
+						<td colspan="4" align="center">8-15nm OD, 3-5nm ID, 10-50um Length<td>
+					</tr>
+					<tr>
+						<td align="right">&nbsp;<br>grams</td>
+						<td align="center">qty (gr)<br><input type="text" style="direction: rtl;" name="particles_grams_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty (gr)<br><input type="text" style="direction: rtl;" name="particles_grams_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty (gr)<br><input type="text" style="direction: rtl;" name="particles_grams_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="particles_cost_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="particles_cost_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="particles_cost_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost/gram</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="particles_cost_per_gram_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="particles_cost_per_gram_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="particles_cost_per_gram_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+				</table>
+			</td>
+			<td valign="middle" width="1"><hr size="120"></td>
+			<td valign="top">
+				<table cellpadding="2">
+					<tr>
+						<td align="center" colspan="4"><a href="https://www.sigmaaldrich.com/catalog/product/aldrich/408727" target="_blank" style="text-decoration: none"><U>Linker Molecule Costs</U></a></td>
+					</tr>
+					<tr>
+						<td align="right">grams/mL<br><input type="text" style="direction: rtl;" name="linker_grams_per_milliliter" size="7" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty (mL)<br><input type="text" style="direction: rtl;" name="linker_milliliters_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty (mL)<br><input type="text" style="direction: rtl;" name="linker_milliliters_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty (mL)<br><input type="text" style="direction: rtl;" name="linker_milliliters_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">grams</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_grams_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_grams_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_grams_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_cost_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_cost_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_cost_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost/gram</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_cost_per_gram_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_cost_per_gram_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="linker_cost_per_gram_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td align="center"><hr size="1" width="90%"></td>
+			<td></td>
+			<td align="center"><hr size="1" width="90%"></td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table cellpadding="2">
+					<tr>
+						<td align="center" colspan="4"><U>Solvent Costs</U></td>
+					</tr>
+					<tr>
+						<td align="right">&nbsp;<br>gallons</td>
+						<td align="center">qty-gals<br><input type="text" style="direction: rtl;" name="solvent_gallons_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty-gals<br><input type="text" style="direction: rtl;" name="solvent_gallons_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty-gals<br><input type="text" style="direction: rtl;" name="solvent_gallons_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="solvent_cost_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="solvent_cost_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="solvent_cost_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost/gal</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="solvent_cost_per_gallon_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="solvent_cost_per_gallon_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="solvent_cost_per_gallon_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+				</table>
+			</td>
+			<td valign="middle" width="1"><hr size="100"></td>
+			<td align="center" valign="top">
+				<table cellpadding="2">
+					<tr>
+						<td align="center" colspan="4"><a href="https://www.sigmaaldrich.com/catalog/product/sigald/a6283" target="_blank" style="text-decoration: none"><U>Protonic PH Adjuster Costs</U></a></td>
+					</tr>
+					<tr>
+						<td align="right">&nbsp;<br>mLiters</td>
+						<td align="center">qty (mL)<br><input type="text" style="direction: rtl;" name="adjuster_milliliters_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty (mL)<br><input type="text" style="direction: rtl;" name="adjuster_milliliters_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center">qty (mL)<br><input type="text" style="direction: rtl;" name="adjuster_milliliters_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="adjuster_cost_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="adjuster_cost_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="adjuster_cost_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td align="right">cost/mL</td>
+						<td align="center"><input type="text" style="direction: rtl;" name="adjuster_cost_per_milliliter_1" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="adjuster_cost_per_milliliter_2" size="6" maxlength="10" readonly="readonly"></td>
+						<td align="center"><input type="text" style="direction: rtl;" name="adjuster_cost_per_milliliter_3" size="6" maxlength="10" readonly="readonly"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top" colspan="3">
+				<table>
+					<tr>
+						<td colspan="3" align="center"><hr size="1" width="98%"></td>
+					</tr>
+					<tr>
+						<td align="center" valign="top">
+							<table cellpadding="2">
+								<tr>
+									<td align="right">Solvent</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="solvent" size="6" maxlength="10" onChange="solvent_totals();"></td>
+									<td>gallons</td>
+								</tr>
+								<tr>
+									<td align="right">Particles</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="particles" size="6" maxlength="10" onChange="particle_totals();"></td>
+									<td>grams/Liter</td>
+								</tr>
+								<tr>
+									<td align="right">Linker</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="linker" size="6" maxlength="10" onChange="linker_totals();"></td>
+									<td>grams/Liter</td>
+								</tr>
+								<tr>
+									<td align="right">Protic</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="adjuster" size="6" maxlength="10" onChange="adjuster_totals();"></td>
+									<td>mL/Liter</td>
+								</tr>
+								<tr>
+									<td colspan="3" align="center"><hr size="1" width="180"></td>
+								</tr>
+								<tr>
+									<td align="right">total</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="total_volume_gallons" size="6" maxlength="10" readonly="readonly"></td>
+									<td>gallons</td>
+								</tr>
+							</table>
+						</td>
+						<td align="center" valign="top">
+							<table cellpadding="2">
+								<tr>
+									<td align="right">liters of Solvent</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="liters_of_solvent" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td align="right">grams of Particles</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="grams_of_particles" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td align="right">mL's of Linker</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="milliliters_of_linker" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td align="right">mL's of Protic</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="milliliters_of_adjuster" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td colspan="2" align="right"><hr size="1" width="160"></td>
+								</tr>
+								<tr>
+									<td align="right">total Liters</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="total_volume_liters" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+							</table>
+						</td>
+						<td align="right" valign="top">
+							<table cellpadding="2">
+								<tr>
+									<td align="right">Solvent total</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="total_solvent" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td align="right">Particles total</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="total_particles" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td align="right">Linker total</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="total_linker" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td align="right">Protic total</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="total_adjuster" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td colspan="2" align="right"><hr size="1" width="155"></td>
+								</tr>
+								<tr>
+									<td align="right">total Costs</td>
+									<td align="left"><input type="text" style="direction: rtl;" name="grand_total" size="8" maxlength="12" readonly="readonly"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5" align="center" valign="top">
+							<table>
+								<tr>
+									<td colspan="5" align="center"><hr size="1" width="98%"></td>
+								</tr>
+								<tr>
+									<td align="center">
+										<table cellpadding="1">
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="milliliters_per_square_foot" size="8" maxlength="12" onChange="convert_from_square_foot();"></td>
+												<td align="left">mL/foot²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="milliliters_per_square_yard" size="8" maxlength="12" onChange="convert_from_square_yard();"></td>
+												<td align="left">mL/yard²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="milliliters_per_square_meter" size="8" maxlength="12" onChange="convert_from_square_meter();"></td>
+												<td align="left">mL/meter²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="milliliters_per_square_inch" size="8" maxlength="12" onChange="convert_from_square_inch();"></td>
+												<td align="left">mL/inch²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="milliliters_per_square_centimeter" size="8" maxlength="12" onChange="convert_from_square_centimeter();"></td>
+												<td align="left">mL/cm²</td>
+											</tr>
+										</table>
+									</td>
+									<td align="center">
+										<table cellpadding="1">
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="cost_per_square_foot" size="8" maxlength="12" readonly="readonly"></td>
+												<td align="left">$/foot²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="cost_per_square_yard" size="8" maxlength="12" readonly="readonly"></td>
+												<td align="left">$/yard²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="cost_per_square_meter" size="8" maxlength="12" readonly="readonly"></td>
+												<td align="left">$/meter²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="cost_per_square_inch" size="8" maxlength="12" readonly="readonly"></td>
+												<td align="left">$/inch²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="cost_per_square_centimeter" size="8" maxlength="12" readonly="readonly"></td>
+												<td align="left">$/cm²</td>
+											</tr>
+										</table>
+									</td>
+									<td align="center">
+										<table cellpadding="1">
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="total_square_feet" size="10" maxlength="14" readonly="readonly"></td>
+												<td align="left">feet²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="total_square_yards" size="10" maxlength="14" readonly="readonly"></td>
+												<td align="left">yard²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="total_square_meters" size="10" maxlength="14" readonly="readonly"></td>
+												<td align="left">meter²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="total_square_inches" size="10" maxlength="14" readonly="readonly"></td>
+												<td align="left">inch²</td>
+											</tr>
+											<tr>
+												<td align="right"><input type="text" style="direction: rtl;" name="total_square_centimeters" size="10" maxlength="14" readonly="readonly"></td>
+												<td align="left">cm²</td>
+											</tr>
+										</table>
+									</td>
+									<td align="center" valign="top"><hr size="120"></td>
+									<td align="right" valign="top">
+										<table cellpadding="1">
+											<tr>
+												<td></td>
+												<td align="left">cost per</td>
+											</tr>
+											<tr>
+												<td align="right">Gallon</td>
+												<td align="left"><input type="text" style="direction: rtl;" name="per_gallon" size="6" maxlength="10" readonly="readonly"></td>
+											</tr>
+											<tr>
+												<td align="right">Liter</td>
+												<td align="left"><input type="text" style="direction: rtl;" name="per_liter" size="6" maxlength="10" readonly="readonly"></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td colspan="2" align="center"><p onclick="default_sensor_values();"><u>default sensor</u></p></td>
+											</tr>
+											<tr>
+												<td colspan="2" align="center"><p onclick="default_heater_values();"><u>default heater</u></p></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</form>
+	<script language=JavaScript>
+	<!--
+	default_form_values();
+	//-->
+	</script>
+	</body>
+</html>
